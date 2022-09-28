@@ -7,7 +7,24 @@ Constraints:
 s consists of English letters, digits, symbols and spaces.
 """
 
+# Time complexity of O(n)
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        memory = dict()
+        current_chars = str()
+        if len(s) < 2:
+            return len(s)
+        for i in range(len(s)):
+            if s[i] not in current_chars:
+                current_chars += s[i]
+            else:
+                memory[current_chars] = len(current_chars)
+                current_chars = current_chars[current_chars.index(s[i]) + 1 :] + s[i]
+        memory[current_chars] = len(current_chars)
+        return max(memory.values())
 
+
+# Time complexity of O(n^2)
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         max_length = 0
